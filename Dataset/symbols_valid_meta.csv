@@ -161,7 +161,7 @@ Y,AGI,Alamos Gold Inc. Class A Common Shares,N, ,N,100.0,N,,AGI,AGI,N
 Y,AGIO,"Agios Pharmaceuticals, Inc. - Common Stock",Q,Q,N,100.0,N,N,,AGIO,N
 Y,AGLE,"Aeglea BioTherapeutics, Inc. - Common Stock",Q,G,N,100.0,N,N,,AGLE,N
 Y,AGM,Federal Agricultural Mortgage Corporation Common Stock,N, ,N,100.0,N,,AGM,AGM,N
-Y,AGM$A,"Federal Agricultural Mortgage Corporation 5.875% Non-CUmulative Preferred Stock, Series A",N, ,N,100.0,N,,AGMpA,AGM-A,N
+Y,AGM-A,"Federal Agricultural Mortgage Corporation 5.875% Non-CUmulative Preferred Stock, Series A",N, ,N,100.0,N,,AGMpA,AGM-A,N
 Y,AGMH,AGM Group Holdings Inc. - Class A Ordinary Shares,Q,S,N,100.0,N,D,,AGMH,N
 Y,AGN,Allergan plc Ordinary Shares,N, ,N,100.0,N,,AGN,AGN,N
 Y,AGNC,AGNC Investment Corp. - Common Stock,Q,Q,N,100.0,N,N,,AGNC,N
@@ -5737,7 +5737,7 @@ Y,PRIM,Primoris Services Corporation - Common Stock,Q,Q,N,100.0,N,N,,PRIM,N
 Y,PRK,Park National Corporation Common Stock,A, ,N,100.0,N,,PRK,PRK,N
 Y,PRLB,"Proto Labs, Inc. Common stock",N, ,N,100.0,N,,PRLB,PRLB,N
 Y,PRMW,Primo Water Corporation Common Stock,N, ,N,100.0,N,,PRMW,PRMW,N
-Y,PRN,Invesco DWA Industrials Momentum ETF,Q,G,Y,100.0,N,N,,PRN,N
+Y,PRN ,Invesco DWA Industrials Momentum ETF,Q,G,Y,100.0,N,N,,PRN,N
 Y,PRNB,Principia Biopharma Inc. - Common Stock,Q,Q,N,100.0,N,N,,PRNB,N
 Y,PRNT,3D Printing (The) ETF,Z, ,Y,100.0,N,,PRNT,PRNT,N
 Y,PRO,"PROS Holdings, Inc. Common Stock",N, ,N,100.0,N,,PRO,PRO,N
