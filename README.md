@@ -3,6 +3,7 @@
 {Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
 
 {Provide a description of the data set that you are analyzing.  Include the link of where you obtained the data.}
+[Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data)
 
 {Describe your purpose for writing this software to analyze the data.}
 
@@ -12,7 +13,9 @@
 
 # Data Analysis Results
 
-{List the questions and the answers you found by doing this analysis.}
+Questions:
+1) How do you Train a Model using multiple files of data?
+2) How does a Regression Model work?
 
 # Development Environment
 
@@ -23,7 +26,6 @@
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
-* [Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data)
 * [Pandas.pydata.org](https://pandas.pydata.org/docs/user_guide/index.html)
 * [Scikit-learn.org](https://scikit-learn.org/stable/user_guide.html)
 
