@@ -25,7 +25,9 @@
 {Make a list of websites that you found helpful in this project}
 * [Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data)
 * [Pandas.pydata.org](https://pandas.pydata.org/docs/user_guide/index.html)
-e
+* [Scikit-learn.org](https://scikit-learn.org/stable/user_guide.html)
+
+
 # Future Work
 
 {Make a list of things that you need to fix, improve, and add in the future.}
