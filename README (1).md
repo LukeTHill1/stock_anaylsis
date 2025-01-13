@@ -23,9 +23,9 @@
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
-* [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
-
+* [Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data)
+* [Pandas.pydata.org](https://pandas.pydata.org/docs/user_guide/index.html)
+e
 # Future Work
 
 {Make a list of things that you need to fix, improve, and add in the future.}
