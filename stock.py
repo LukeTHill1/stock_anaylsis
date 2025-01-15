@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn import metrics 
 from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
 # Reading the Data
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
