@@ -1,5 +1,6 @@
 # Imports
 import pandas as pd
+# import datetime as dt
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -26,6 +27,7 @@ for row in range(len(stock_managing_data)):
 
     if stock_managing_data["ETF"][row] == 'N':
         data = pd.read_csv(f"Dataset/stocks/{symbol}.csv")
+        data = data[data['Date'].dt.year >= 2000]
 
         for row_index in range(len(data)):
             date = data.at[row_index,'Date']
@@ -49,14 +51,38 @@ for row in range(len(stock_managing_data)):
                     'Count' : 1
                 }
     else:
-        pass
-        # data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
+        data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
+        data = data[data['Date'].dt.year >= 2000]
+
+        for row_index in range(len(data)):
+            date = data.at[row_index,'Date']
+            if date in aggregated_data:
+                aggregated_data[date]['Open'] += data.at[row_index,'Open'],
+                aggregated_data[date]['High'] += data.at[row_index,'High'],
+                aggregated_data[date]['Low'] += data.at[row_index,'Low'],
+                aggregated_data[date]['Close'] += data.at[row_index,'Close'],
+                aggregated_data[date]['Adj Close'] += data.at[row_index,'Adj Close'],
+                aggregated_data[date]['Volume'] += data.at[row_index,'Volume'],
+                aggregated_data[date]['Count'] += 1
+
+            else:
+                aggregated_data[date] = {
+                    'Open' : data.at[row_index,'Open'],
+                    'High' : data.at[row_index,'High'],
+                    'Low' : data.at[row_index,'Low'],
+                    'Close' : data.at[row_index,'Close'],
+                    'Adj Close' : data.at[row_index,'Adj Close'],
+                    'Volume' : data.at[row_index,'Volume'],
+                    'Count' : 1
+                }
 
 for date, values in aggregated_data.items():
     market_trend_dataset = pd.concat([market_trend_dataset,])
 
+print(market_trend_dataset.head(3))
 
-market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
+
+# market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
 
 print("It is Finished")
 # # Initializing the model 
