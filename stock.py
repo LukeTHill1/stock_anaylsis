@@ -36,4 +36,7 @@ for row in range(len(stock_managing_data)):
 # 2  1999-11-22  29.551144  31.473534  28.657009  31.473534  27.068665   6577800
 
 print(data.head(3))
+
+condensed_df = data.groupby('Date').mean().reset_index()
+condensed_df.to_csv('condensed_data.csv', index=False)
 # print("It worked")
