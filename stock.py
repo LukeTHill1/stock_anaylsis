@@ -1,6 +1,10 @@
 # Imports
 import pandas as pd
-
+import plotly_express as px
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn import metrics 
+from sklearn.datasets import load_iris
 # Reading the Data
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
@@ -34,3 +38,4 @@ for row in range(len(stock_managing_data)):
 # 0  1999-11-18  32.546494  35.765381  28.612303  31.473534  27.068665  62546300
 # 1  1999-11-19  30.713520  30.758226  28.478184  28.880543  24.838577  15234100
 # 2  1999-11-22  29.551144  31.473534  28.657009  31.473534  27.068665   6577800
+
