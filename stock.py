@@ -2,10 +2,6 @@
 import pandas as pd
 import plotly_express as px
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn import metrics 
-from sklearn.datasets import load_iris
-from sklearn.metrics import accuracy_score
 # Reading the Data
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
@@ -62,20 +58,37 @@ while True:
         print(selected_stock)
 
         # Display chart
-        stock_managed = pd.read_csv(f"Dataset/{selected_stock}")
-        stock_managed = stock_managed.query('')
         fig = px.line(
-            stock_managed,
+            selected_stock,
             x='Date',
-            y='Open'
+            y='Open',
+            title='The Companies opening trend.'
+        )
+        fig.update_layout(
+            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            yaxis_title = ''
         )
         fig.show()
         fig2 = px.line(
-            stock_managing_data,
+            selected_stock,
             x='Date',
-            y='Close'
+            y='Close',
+            title='The Compnies closing trends'
         )
         fig2.show()
+        #stock_managed = selected_stock.query('Date <= 2000-01-01 & Date >= 2020-12-31')
+        #fig = px.line(
+        #    stock_managed,
+        #    x='Date',
+        #    y='Open'
+        #)
+        #fig.show()
+        #fig2 = px.line(
+        #    stock_managed,
+        #    x='Date',
+        #    y='Close'
+        #)
+        #fig2.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
 
