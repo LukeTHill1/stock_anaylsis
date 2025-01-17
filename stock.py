@@ -46,3 +46,25 @@ for row in range(len(stock_managing_data)):
 #    x='Date',
 #    y='Close'
 #)
+
+# UI
+display_frame = "" # New Data Frame (may not use)
+
+print("\nStock Analysis")
+print("--------------\n")
+
+while True:
+    user_input = input("Enter a NASDAQ Symbol (type \"exit\" to close): ").upper()
+    if user_input.upper() == "EXIT":
+        break
+    if user_input in stock_managing_data["NASDAQ Symbol"].to_numpy():
+
+        # Read and Display Company Data
+        # symbol_set = np.where(stock_managing_data.to_numpy()[1] == user_input) 
+        selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
+        # print(symbol_set[0])
+        print(selected_stock)
+
+        # Display chart
+    else:
+        print(f"\"${user_input}\" - NASDAQ Symbol not found")
