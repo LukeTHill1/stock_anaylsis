@@ -33,12 +33,51 @@ for row in range(len(stock_managing_data)):
         data = pd.read_csv(f"Dataset/stocks/{symbol}.csv")
     else:
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
-    
-# The data looks like this: print(data.head(3))
-#          Date       Open       High        Low      Close  Adj Close    Volume
-# 0  1999-11-18  32.546494  35.765381  28.612303  31.473534  27.068665  62546300
-# 1  1999-11-19  30.713520  30.758226  28.478184  28.880543  24.838577  15234100
-# 2  1999-11-22  29.551144  31.473534  28.657009  31.473534  27.068665   6577800
 
+<<<<<<< HEAD
 print(data.head(3))
 # print("It worked")
+=======
+
+#stock_managed = pd.read_csv(f"{}")
+#fig = px.line(
+#    stock_managed,
+#    x='Date',
+#    y='Open'
+#)
+#fig2 = px.line(
+#    stock_managing_data,
+#    x='Date',
+#    y='Close'
+#)
+
+# UI
+print("\nStock Analysis")
+print("--------------\n")
+
+while True:
+    user_input = input("Enter a NASDAQ Symbol (type \"exit\" to close): ").upper()
+    if user_input.upper() == "EXIT":
+        break
+    if user_input in stock_managing_data["NASDAQ Symbol"].to_numpy():
+
+        # Read Company Data
+        company_info = []
+        for c in stock_managing_data.to_numpy():
+            if c[1] == user_input:
+                company_info = c
+                break
+        folder = "etfs" if company_info[3] else "stocks"
+        selected_stock = pd.read_csv(f"Dataset/{folder}/{user_input}.csv")
+
+        # Display Company Data
+        print(f"\n{company_info[0]} ({company_info[1]})\n")
+        print("Stock History")
+        print(selected_stock)
+
+        # Display chart
+        ## (code for displaying chart here)
+
+    else:
+        print(f"\"{user_input}\" - NASDAQ Symbol not found")
+>>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914

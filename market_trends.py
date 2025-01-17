@@ -2,24 +2,16 @@
 import pandas as pd
 # import datetime as dt
 
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-
-### MAIN GOAL: Get Model to make predictions
-### FUTURE PLANS: Make a csv file that is structured for a linear regression model using the mean market trend of each day.
-
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
 # Removing columns for easier organization (I may change which columns later but this should work for now)
 stock_managing_data = stock_managing_data.drop(columns=['Nasdaq Traded','Listing Exchange','Market Category','Round Lot Size','Test Issue','Financial Status','CQS Symbol','Symbol','NextShares'])
 
-# Possibly make 2 market trends, one for etf and one for stocks
-market_trend_dataset = pd.DataFrame(columns=['Date','Open','High','Low','Close','Adj Close','Volume'])
-
 aggregated_data = {}
 
 for row in range(len(stock_managing_data)):
     symbol = stock_managing_data["NASDAQ Symbol"][row]
+    print(symbol)
 
     # PRN.csv is not a valid name. We will need a better work around later. I renamed the file to include a 1. Its hardcoded...
     if symbol == "PRN":
@@ -29,29 +21,33 @@ for row in range(len(stock_managing_data)):
         data = pd.read_csv(f"Dataset/stocks/{symbol}.csv")
         data = data[data['Date'].dt.year >= 2000]
 
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = data[data['Date'] >= '2000-01-01']
+        
         for row_index in range(len(data)):
-            date = data.at[row_index,'Date']
+            date = data.iloc[row_index]['Date']
             if date in aggregated_data:
-                aggregated_data[date]['Open'] += data.at[row_index,'Open'],
-                aggregated_data[date]['High'] += data.at[row_index,'High'],
-                aggregated_data[date]['Low'] += data.at[row_index,'Low'],
-                aggregated_data[date]['Close'] += data.at[row_index,'Close'],
-                aggregated_data[date]['Adj Close'] += data.at[row_index,'Adj Close'],
-                aggregated_data[date]['Volume'] += data.at[row_index,'Volume'],
-                aggregated_data[date]['Count'] += 1
+                aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])  
+                aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
+                aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
+                aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
+                aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
+                aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
+                aggregated_data[date]['Count'] += 1.0
 
             else:
                 aggregated_data[date] = {
-                    'Open' : data.at[row_index,'Open'],
-                    'High' : data.at[row_index,'High'],
-                    'Low' : data.at[row_index,'Low'],
-                    'Close' : data.at[row_index,'Close'],
-                    'Adj Close' : data.at[row_index,'Adj Close'],
-                    'Volume' : data.at[row_index,'Volume'],
-                    'Count' : 1
+                    'Open' : float(data.iloc[row_index]['Open']),
+                    'High' : float(data.iloc[row_index]['High']),
+                    'Low' : float(data.iloc[row_index]['Low']),
+                    'Close' : float(data.iloc[row_index]['Close']),
+                    'Adj Close' : float(data.iloc[row_index]['Adj Close']),
+                    'Volume' : float(data.iloc[row_index]['Volume']),
+                    'Count' : 1.0
                 }
     else:
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
+<<<<<<< HEAD
         data = data[data['Date'].dt.year >= 2000]
 
         for row_index in range(len(data)):
@@ -75,11 +71,59 @@ for row in range(len(stock_managing_data)):
                     'Volume' : data.at[row_index,'Volume'],
                     'Count' : 1
                 }
+=======
+        
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = data[data['Date'] >= '2000-01-01']
+
+
+        for row_index in range(len(data)):
+            date = data.iloc[row_index]['Date']
+            if date in aggregated_data:
+                aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])
+                aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
+                aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
+                aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
+                aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
+                aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
+                aggregated_data[date]['Count'] += 1.0
+
+            else:
+                aggregated_data[date] = {
+                    'Open' : float(data.iloc[row_index]['Open']),
+                    'High' : float(data.iloc[row_index]['High']),
+                    'Low' : float(data.iloc[row_index]['Low']),
+                    'Close' : float(data.iloc[row_index]['Close']),
+                    'Adj Close' : float(data.iloc[row_index]['Adj Close']),
+                    'Volume' : float(data.iloc[row_index]['Volume']),
+                    'Count' : 1.0
+                }
+
+rows = []
+>>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
 
 for date, values in aggregated_data.items():
-    market_trend_dataset = pd.concat([market_trend_dataset,])
+    row = {
+        'Date': date,
+        'Open': values['Open'] / values['Count'],
+        'High': values['High'] / values['Count'],
+        'Low': values['Low'] / values['Count'],
+        'Close': values['Close'] / values['Count'],
+        'Adj Close': values['Adj Close'] / values['Count'],
+        'Volume': values['Volume'] / values['Count']
+    }
+    rows.append(row)
 
+<<<<<<< HEAD
 print(market_trend_dataset.head(3))
+=======
+market_trend_dataset = pd.DataFrame(rows)
+
+market_trend_dataset['Date'] = pd.to_datetime(market_trend_dataset['Date'])
+market_trend_dataset = market_trend_dataset.sort_values(by='Date').reset_index(drop=True)
+
+market_trend_dataset.dropna(inplace=True)
+>>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
 
 
 # market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
