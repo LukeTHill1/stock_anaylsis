@@ -2,10 +2,6 @@
 import pandas as pd
 import plotly_express as px
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn import metrics 
-from sklearn.datasets import load_iris
-from sklearn.metrics import accuracy_score
 # Reading the Data
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
@@ -34,22 +30,8 @@ for row in range(len(stock_managing_data)):
     else:
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
 
-<<<<<<< HEAD
-print(data.head(3))
-# print("It worked")
-=======
 
-#stock_managed = pd.read_csv(f"{}")
-#fig = px.line(
-#    stock_managed,
-#    x='Date',
-#    y='Open'
-#)
-#fig2 = px.line(
-#    stock_managing_data,
-#    x='Date',
-#    y='Close'
-#)
+
 
 # UI
 print("\nStock Analysis")
@@ -76,8 +58,42 @@ while True:
         print(selected_stock)
 
         # Display chart
-        ## (code for displaying chart here)
-
+        fig = px.line(
+            selected_stock,
+            x='Date',
+            y='Open',
+            title='The Companies opening trend.'
+        )
+        fig.update_layout(
+            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            yaxis_title = 'Opening price between Jan 2000 & Dec 2020'
+        )
+        fig.show()
+        fig2 = px.line(
+            selected_stock,
+            x='Date',
+            y='Close',
+            title='The Compnies closing trends'
+        )
+        fig2.update_layout(
+            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
+        )
+        fig2.show()
+        #stock_managed = selected_stock.query('Date <= 2000-01-01 & Date >= 2020-12-31')
+        #fig = px.line(
+        #    stock_managed,
+        #    x='Date',
+        #    y='Open'
+        #)
+        #fig.show()
+        #fig2 = px.line(
+        #    stock_managed,
+        #    x='Date',
+        #    y='Close'
+        #)
+        #fig2.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
->>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
+
+
