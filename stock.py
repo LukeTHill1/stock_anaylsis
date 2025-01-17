@@ -66,7 +66,7 @@ while True:
         )
         fig.update_layout(
             xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-            yaxis_title = ''
+            yaxis_title = 'Opening price between Jan 2000 & Dec 2020'
         )
         fig.show()
         fig2 = px.line(
@@ -74,6 +74,10 @@ while True:
             x='Date',
             y='Close',
             title='The Compnies closing trends'
+        )
+        fig2.update_layout(
+            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
         )
         fig2.show()
         #stock_managed = selected_stock.query('Date <= 2000-01-01 & Date >= 2020-12-31')
