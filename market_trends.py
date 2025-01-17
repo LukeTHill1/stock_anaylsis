@@ -45,62 +45,36 @@ for row in range(len(stock_managing_data)):
                     'Volume' : float(data.iloc[row_index]['Volume']),
                     'Count' : 1.0
                 }
-    else:
-        data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
-<<<<<<< HEAD
-        data = data[data['Date'].dt.year >= 2000]
-
-        for row_index in range(len(data)):
-            date = data.at[row_index,'Date']
-            if date in aggregated_data:
-                aggregated_data[date]['Open'] += data.at[row_index,'Open'],
-                aggregated_data[date]['High'] += data.at[row_index,'High'],
-                aggregated_data[date]['Low'] += data.at[row_index,'Low'],
-                aggregated_data[date]['Close'] += data.at[row_index,'Close'],
-                aggregated_data[date]['Adj Close'] += data.at[row_index,'Adj Close'],
-                aggregated_data[date]['Volume'] += data.at[row_index,'Volume'],
-                aggregated_data[date]['Count'] += 1
-
-            else:
-                aggregated_data[date] = {
-                    'Open' : data.at[row_index,'Open'],
-                    'High' : data.at[row_index,'High'],
-                    'Low' : data.at[row_index,'Low'],
-                    'Close' : data.at[row_index,'Close'],
-                    'Adj Close' : data.at[row_index,'Adj Close'],
-                    'Volume' : data.at[row_index,'Volume'],
-                    'Count' : 1
-                }
-=======
+    # else:
+    #     data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
         
-        data['Date'] = pd.to_datetime(data['Date'])
-        data = data[data['Date'] >= '2000-01-01']
+    #     data['Date'] = pd.to_datetime(data['Date'])
+    #     data = data[data['Date'] >= '2000-01-01']
 
 
-        for row_index in range(len(data)):
-            date = data.iloc[row_index]['Date']
-            if date in aggregated_data:
-                aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])
-                aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
-                aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
-                aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
-                aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
-                aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
-                aggregated_data[date]['Count'] += 1.0
+    #     for row_index in range(len(data)):
+    #         date = data.iloc[row_index]['Date']
+    #         if date in aggregated_data:
+    #             aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])
+    #             aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
+    #             aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
+    #             aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
+    #             aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
+    #             aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
+    #             aggregated_data[date]['Count'] += 1.0
 
-            else:
-                aggregated_data[date] = {
-                    'Open' : float(data.iloc[row_index]['Open']),
-                    'High' : float(data.iloc[row_index]['High']),
-                    'Low' : float(data.iloc[row_index]['Low']),
-                    'Close' : float(data.iloc[row_index]['Close']),
-                    'Adj Close' : float(data.iloc[row_index]['Adj Close']),
-                    'Volume' : float(data.iloc[row_index]['Volume']),
-                    'Count' : 1.0
-                }
+    #         else:
+    #             aggregated_data[date] = {
+    #                 'Open' : float(data.iloc[row_index]['Open']),
+    #                 'High' : float(data.iloc[row_index]['High']),
+    #                 'Low' : float(data.iloc[row_index]['Low']),
+    #                 'Close' : float(data.iloc[row_index]['Close']),
+    #                 'Adj Close' : float(data.iloc[row_index]['Adj Close']),
+    #                 'Volume' : float(data.iloc[row_index]['Volume']),
+    #                 'Count' : 1.0
+    #             }
 
 rows = []
->>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
 
 for date, values in aggregated_data.items():
     row = {
@@ -114,16 +88,12 @@ for date, values in aggregated_data.items():
     }
     rows.append(row)
 
-<<<<<<< HEAD
-print(market_trend_dataset.head(3))
-=======
 market_trend_dataset = pd.DataFrame(rows)
 
 market_trend_dataset['Date'] = pd.to_datetime(market_trend_dataset['Date'])
 market_trend_dataset = market_trend_dataset.sort_values(by='Date').reset_index(drop=True)
 
 market_trend_dataset.dropna(inplace=True)
->>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
 
 
 # market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
