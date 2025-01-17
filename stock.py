@@ -57,14 +57,16 @@ while True:
         break
     if user_input in stock_managing_data["NASDAQ Symbol"].to_numpy():
 
-        # Read and Display Company Data
-        selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
+        # Read Company Data
         company_info = []
         for c in stock_managing_data.to_numpy():
             if c[1] == user_input:
                 company_info = c
                 break
-        
+        folder = "etfs" if company_info[3] else "stocks"
+        selected_stock = pd.read_csv(f"Dataset/{folder}/{user_input}.csv")
+
+        # Display Company Data
         print(f"\n{company_info[0]} ({company_info[1]})\n")
         print("Stock History")
         print(selected_stock)
