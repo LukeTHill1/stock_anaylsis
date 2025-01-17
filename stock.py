@@ -48,8 +48,6 @@ for row in range(len(stock_managing_data)):
 #)
 
 # UI
-display_frame = "" # New Data Frame (may not use)
-
 print("\nStock Analysis")
 print("--------------\n")
 
@@ -60,11 +58,19 @@ while True:
     if user_input in stock_managing_data["NASDAQ Symbol"].to_numpy():
 
         # Read and Display Company Data
-        # symbol_set = np.where(stock_managing_data.to_numpy()[1] == user_input) 
         selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
-        # print(symbol_set[0])
+        company_info = []
+        for c in stock_managing_data.to_numpy():
+            if c[1] == user_input:
+                company_info = c
+                break
+        
+        print(f"\n{company_info[0]} ({company_info[1]})\n")
+        print("Stock History")
         print(selected_stock)
 
         # Display chart
+        ## (code for displaying chart here)
+
     else:
-        print(f"\"${user_input}\" - NASDAQ Symbol not found")
+        print(f"\"{user_input}\" - NASDAQ Symbol not found")
