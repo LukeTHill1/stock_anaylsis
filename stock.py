@@ -34,22 +34,8 @@ for row in range(len(stock_managing_data)):
     else:
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
 
-<<<<<<< HEAD
-print(data.head(3))
-# print("It worked")
-=======
 
-#stock_managed = pd.read_csv(f"{}")
-#fig = px.line(
-#    stock_managed,
-#    x='Date',
-#    y='Open'
-#)
-#fig2 = px.line(
-#    stock_managing_data,
-#    x='Date',
-#    y='Close'
-#)
+
 
 # UI
 print("\nStock Analysis")
@@ -76,8 +62,21 @@ while True:
         print(selected_stock)
 
         # Display chart
-        ## (code for displaying chart here)
-
+        stock_managed = pd.read_csv(f"Dataset/{selected_stock}")
+        stock_managed = stock_managed.query('')
+        fig = px.line(
+            stock_managed,
+            x='Date',
+            y='Open'
+        )
+        fig.show()
+        fig2 = px.line(
+            stock_managing_data,
+            x='Date',
+            y='Close'
+        )
+        fig2.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
->>>>>>> 98185cce23eceb1166df728f759b9bd78cd16914
+
+
