@@ -19,7 +19,6 @@ for row in range(len(stock_managing_data)):
 
     if stock_managing_data["ETF"][row] == 'N':
         data = pd.read_csv(f"Dataset/stocks/{symbol}.csv")
-        data = data[data['Date'].dt.year >= 2000]
 
         data['Date'] = pd.to_datetime(data['Date'])
         data = data[data['Date'] >= '2000-01-01']
