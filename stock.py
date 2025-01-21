@@ -1,3 +1,4 @@
+#%%
 # Imports
 import pandas as pd
 import plotly_express as px
@@ -10,6 +11,7 @@ stock_managing_data = stock_managing_data.drop(columns=['Nasdaq Traded','Listing
 
 # Seperates the ETF column into 2 columns. ETF_N and ETF_Y 
 stock_managing_data = pd.get_dummies(stock_managing_data, columns=["ETF"])
+
 
 # The data looks like this: print(stock_managing_data.head(3))
 #                              Security Name NASDAQ Symbol  ETF_N  ETF_Y
@@ -33,9 +35,12 @@ for row in range(len(stock_managing_data)):
 
 
 
+
+#%%
 # UI
 print("\nStock Analysis")
 print("--------------\n")
+
 
 while True:
     user_input = input("Enter a NASDAQ Symbol (type \"exit\" to close): ").upper()
@@ -53,15 +58,15 @@ while True:
             print(f"\"{user_input}\" - NASDAQ Symbol belongs to an ETF. PLease choose a different symbol")
         else:
             selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
-
             # Display Company Data
             print(f"\n{company_info[0]} ({company_info[1]})\n")
             print("Stock History")
             print(selected_stock)
 
             # Display chart
+            selected_stocks = selected_stock.query('Date >= "2000-01-01" and Date <= "2020-12-31"')
             fig = px.line(
-                selected_stock,
+                selected_stocks,
                 x='Date',
                 y='Open',
                 title='The Companies opening trend.'
@@ -73,40 +78,17 @@ while True:
             )
             fig.show()
             fig2 = px.line(
-                selected_stock,
+                selected_stocks,
                 x='Date',
                 y='Close',
                 title='The Compnies closing trends'
             )
             fig2.update_layout(
                 xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-                yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
+                yaxis_title = 'Closing price between Jan 2000 & Dec 2020',
+                title_font_size = 25
             )
             fig2.show()
-            #stock_managed = selected_stock.query('Date <= 2000-01-01 or Date >= 2020-12-31')
-            #fig = px.line(
-            #    stock_managed,
-            #    x='Date',
-            #    y='Open',
-            #    title='The Compnies opening trends'
-            #)
-            #fig.show()
-            #fig.update_layout(
-            #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-            #    yaxis_title = 'Opening price between Jan 2000 & Dec 2020'
-            #)
-            #fig2 = px.line(
-            #    stock_managed,
-            #    x='Date',
-            #    y='Close'
-            #    title='The Compnies closing trends'
-            #)
-            #fig2.update_layout(
-            #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-            #    yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
-            #)
-            #fig2.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
-
-
+# %%
