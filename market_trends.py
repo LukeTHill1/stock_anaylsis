@@ -95,7 +95,7 @@ market_trend_dataset = market_trend_dataset.sort_values(by='Date').reset_index(d
 market_trend_dataset.dropna(inplace=True)
 
 
-# market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
+market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
 
 print("It is Finished")
 # # Initializing the model 
