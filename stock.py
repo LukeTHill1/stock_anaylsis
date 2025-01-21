@@ -49,60 +49,63 @@ while True:
             if c[1] == user_input:
                 company_info = c
                 break
-        selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
+        if company_info[3]:
+            print(f"\"{user_input}\" - NASDAQ Symbol belongs to an ETF. PLease choose a different symbol")
+        else:
+            selected_stock = pd.read_csv(f"Dataset/stocks/{user_input}.csv")
 
-        # Display Company Data
-        print(f"\n{company_info[0]} ({company_info[1]})\n")
-        print("Stock History")
-        print(selected_stock)
+            # Display Company Data
+            print(f"\n{company_info[0]} ({company_info[1]})\n")
+            print("Stock History")
+            print(selected_stock)
 
-        # Display chart
-        fig = px.line(
-            selected_stock,
-            x='Date',
-            y='Open',
-            title='The Companies opening trend.'
-        )
-        fig.update_layout(
-            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-            yaxis_title = 'Opening price between Jan 2000 & Dec 2020',
-            title_font_size = 25
-        )
-        fig.show()
-        fig2 = px.line(
-            selected_stock,
-            x='Date',
-            y='Close',
-            title='The Compnies closing trends'
-        )
-        fig2.update_layout(
-            xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-            yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
-        )
-        fig2.show()
-        #stock_managed = selected_stock.query('Date <= 2000-01-01 or Date >= 2020-12-31')
-        #fig = px.line(
-        #    stock_managed,
-        #    x='Date',
-        #    y='Open',
-        #    title='The Compnies opening trends'
-        #)
-        #fig.show()
-        #fig.update_layout(
-        #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-        #    yaxis_title = 'Opening price between Jan 2000 & Dec 2020'
-        #)
-        #fig2 = px.line(
-        #    stock_managed,
-        #    x='Date',
-        #    y='Close'
-        #    title='The Compnies closing trends'
-        #)
-        #fig2.update_layout(
-        #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
-        #    yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
-        #)
-        #fig2.show()
+            # Display chart
+            fig = px.line(
+                selected_stock,
+                x='Date',
+                y='Open',
+                title='The Companies opening trend.'
+            )
+            fig.update_layout(
+                xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+                yaxis_title = 'Opening price between Jan 2000 & Dec 2020',
+                title_font_size = 25
+            )
+            fig.show()
+            fig2 = px.line(
+                selected_stock,
+                x='Date',
+                y='Close',
+                title='The Compnies closing trends'
+            )
+            fig2.update_layout(
+                xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+                yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
+            )
+            fig2.show()
+            #stock_managed = selected_stock.query('Date <= 2000-01-01 or Date >= 2020-12-31')
+            #fig = px.line(
+            #    stock_managed,
+            #    x='Date',
+            #    y='Open',
+            #    title='The Compnies opening trends'
+            #)
+            #fig.show()
+            #fig.update_layout(
+            #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            #    yaxis_title = 'Opening price between Jan 2000 & Dec 2020'
+            #)
+            #fig2 = px.line(
+            #    stock_managed,
+            #    x='Date',
+            #    y='Close'
+            #    title='The Compnies closing trends'
+            #)
+            #fig2.update_layout(
+            #    xaxis_title = 'Dates between Jan 2000 & Dec 2020',
+            #    yaxis_title = 'Closing price between Jan 2000 & Dec 2020'
+            #)
+            #fig2.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
 
