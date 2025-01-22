@@ -140,6 +140,9 @@ while True:
             })
 
             print(future_df)
+
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
 
+
+# %%
