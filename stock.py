@@ -3,7 +3,9 @@
 # Editors: Andrew, Luke
 #
 #########
+#%%
 # Imports
+from lets_plot import *
 import pandas as pd
 import plotly_express as px
 import numpy as np
@@ -51,6 +53,7 @@ for row in range(len(stock_managing_data)):
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
 
 
+#%%
 # UI
 print("\nStock Analysis")
 print("--------------\n")
@@ -147,6 +150,11 @@ while True:
                 'Day': range(1, 31),
                 'Predicted_Close': future_predictions
             })
-            future_df.show()
+
+            print(future_df)
+
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
+
+
+# %%
