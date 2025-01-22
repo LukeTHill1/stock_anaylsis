@@ -1,4 +1,6 @@
+#%%
 # Imports
+from lets_plot import *
 import pandas as pd
 import plotly_express as px
 import numpy as np
@@ -39,6 +41,7 @@ for row in range(len(stock_managing_data)):
         data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
 
 
+#%%
 # UI
 print("\nStock Analysis")
 print("--------------\n")
@@ -136,10 +139,7 @@ while True:
                 'Predicted_Close': future_predictions
             })
 
-            # print(future_df)
-            (
-            ggplot(future_df, aes(x='Day', y='Predicted_Close'))
-            + geom_line()
-            )
+            print(future_df)
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
+
