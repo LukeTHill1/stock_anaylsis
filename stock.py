@@ -1,7 +1,16 @@
+#########
+# Owner: Luke
+# Editors: Andrew, Luke
+#
+#########
 # Imports
 import pandas as pd
 import plotly_express as px
 import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
 from sklearn.model_selection import train_test_split
 from sklearn import tree
 from sklearn.naive_bayes import GaussianNB
@@ -9,6 +18,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LinearRegression
+
+LetsPlot.setup_html(isolated_frame=True)
+
 # Reading the Data
 stock_managing_data = pd.read_csv("Dataset/symbols_valid_meta.csv")
 
@@ -135,11 +147,6 @@ while True:
                 'Day': range(1, 31),
                 'Predicted_Close': future_predictions
             })
-
-            # print(future_df)
-            (
-            ggplot(future_df, aes(x='Day', y='Predicted_Close'))
-            + geom_line()
-            )
+            future_df.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
