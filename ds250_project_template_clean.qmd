@@ -86,16 +86,22 @@ test_data = pd.read_csv("market_trend_dataset.csv")
 test_data['Previous_Close'] = test_data['Close'].shift(1)
 
 test_data = test_data.dropna()
+test_data = test_data.rename(columns={"Adj Close":"Adj_Close"})
+# print(test_data.head(3))
+
+```
+
+```{python}
 
 test_data = test_data[test_data['Date'] >= '2019-01-01']
 # test_data = test_data.drop(columns=['Date'], axis=1)
 
-last_day = test_data[['Previous_Close']]
-target = test_data['Close']
+X_pred = test_data[['Previous_Close']]
+y_pred = test_data['Close']
 
 # print(test_data)
 
-X_train, X_test, y_train, y_test = train_test_split(last_day, target, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X_pred, y_pred, test_size=0.2, random_state=42)
 
 model.fit(X_train,y_train)
 
@@ -148,15 +154,6 @@ ggplot(future_df, aes(x='Day', y='Predicted_Close'))
 #| tbl-cap: "Not much of a table"
 #| tbl-cap-location: top
 # Include and execute your code here
-mydat = (df.head(1000)
-    .groupby('year')
-    .sum()
-    .reset_index()
-    .tail(10)
-    .filter(["year", "AK","AR"])
-)
-display(mydat)
-
 ```
 
 
