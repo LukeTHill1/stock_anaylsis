@@ -330,8 +330,7 @@ while True:
                 'Day': range(1, 31),
                 'Predicted_Close': future_predictions
             })
-
-            print(future_df)
+            future_df.show()
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
 

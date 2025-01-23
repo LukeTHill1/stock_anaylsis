@@ -150,11 +150,15 @@ while True:
                 'Day': range(1, 31),
                 'Predicted_Close': future_predictions
             })
-
-            print(future_df)
+            future_df2 = px.histogram(
+                future_predictions,
+                x='Date',
+                title='30 day prediction for the company.'
+            )
+            future_df2.update_layout(
+                bargap=0.2
+            )
+            future_df2.show()
 
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
-
-
-# %%
