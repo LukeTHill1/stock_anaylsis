@@ -9,6 +9,28 @@ stock_managing_data = stock_managing_data.drop(columns=['Nasdaq Traded','Listing
 
 aggregated_data = {}
 
+class RunningStats:
+    def __init__(self):
+        self.n = 0          # Count of numbers
+        self.mean = 0.0     # Current mean
+        self.M2 = 0.0       # Sum of squares of differences from the mean
+
+    def update(self, x):
+        self.n += 1
+        delta = x - self.mean
+        self.mean += delta / self.n
+        delta2 = x - self.mean
+        self.M2 += delta * delta2
+
+    def variance(self):
+        if self.n < 2:
+            return float('nan')  # Variance is undefined for n < 2
+        return self.M2 / (self.n - 1)
+
+    def std_dev(self):
+        return self.variance() ** 0.5
+
+
 for row in range(len(stock_managing_data)):
     symbol = stock_managing_data["NASDAQ Symbol"][row]
     print(symbol)
@@ -22,56 +44,126 @@ for row in range(len(stock_managing_data)):
 
         data['Date'] = pd.to_datetime(data['Date'])
         data = data[data['Date'] >= '2000-01-01']
-        
+
         for row_index in range(len(data)):
             date = data.iloc[row_index]['Date']
+
+            open_value = float(data.iloc[row_index]['Open'])
+            high_value = float(data.iloc[row_index]['High'])
+            low_value = float(data.iloc[row_index]['Low'])
+            close_value = float(data.iloc[row_index]['Close'])
+            adj_close_value = float(data.iloc[row_index]['Adj Close'])
+            volume_value = float(data.iloc[row_index]['Volume'])
+
             if date in aggregated_data:
-                aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])  
-                aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
-                aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
-                aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
-                aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
-                aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
-                aggregated_data[date]['Count'] += 1.0
+
+                aggregated_data[date]['Std_Open'].update(open_value)
+                aggregated_data[date]['Std_High'].update(high_value)
+                aggregated_data[date]['Std_Low'].update(low_value)
+                aggregated_data[date]['Std_Close'].update(close_value)
+                aggregated_data[date]['Std_Adj Close'].update(adj_close_value)
+                aggregated_data[date]['Std_Volume'].update(volume_value)
+                aggregated_data[date]['Deviations'] += 1
+
+                num_std_dev = 2 
+
+                if (abs(open_value - aggregated_data[date]['Std_Open'].mean) <= num_std_dev * aggregated_data[date]['Std_Open'].std_dev() and
+        abs(high_value - aggregated_data[date]['Std_High'].mean) <= num_std_dev * aggregated_data[date]['Std_High'].std_dev() and
+        abs(low_value - aggregated_data[date]['Std_Low'].mean) <= num_std_dev * aggregated_data[date]['Std_Low'].std_dev() and
+        abs(close_value - aggregated_data[date]['Std_Close'].mean) <= num_std_dev * aggregated_data[date]['Std_Close'].std_dev() and
+        abs(adj_close_value - aggregated_data[date]['Std_Adj Close'].mean) <= num_std_dev * aggregated_data[date]['Std_Adj Close'].std_dev() and
+        abs(volume_value - aggregated_data[date]['Std_Volume'].mean) <= num_std_dev * aggregated_data[date]['Std_Volume'].std_dev()):
+
+
+                    aggregated_data[date]['Open'] += open_value
+                    aggregated_data[date]['High'] += high_value
+                    aggregated_data[date]['Low'] += low_value
+                    aggregated_data[date]['Close'] += close_value
+                    aggregated_data[date]['Adj Close'] += adj_close_value
+                    aggregated_data[date]['Volume'] += volume_value
+                    aggregated_data[date]['Count'] += 1.0
+
 
             else:
                 aggregated_data[date] = {
-                    'Open' : float(data.iloc[row_index]['Open']),
-                    'High' : float(data.iloc[row_index]['High']),
-                    'Low' : float(data.iloc[row_index]['Low']),
-                    'Close' : float(data.iloc[row_index]['Close']),
-                    'Adj Close' : float(data.iloc[row_index]['Adj Close']),
-                    'Volume' : float(data.iloc[row_index]['Volume']),
-                    'Count' : 1.0
+                    'Open' : open_value,
+                    'High' : high_value,
+                    'Low' : low_value,
+                    'Close' : close_value,
+                    'Adj Close' : adj_close_value,
+                    'Volume' : volume_value,
+                    'Count' : 1.0,
+                    "Deviations" : 0,
+                    'Std_Open' : RunningStats(),
+                    'Std_High' : RunningStats(),
+                    'Std_Low' : RunningStats(),
+                    'Std_Close' : RunningStats(),
+                    'Std_Adj Close' : RunningStats(),
+                    'Std_Volume' : RunningStats(),
                 }
-    # else:
-    #     data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
-        
-    #     data['Date'] = pd.to_datetime(data['Date'])
-    #     data = data[data['Date'] >= '2000-01-01']
+    else:
+        data = pd.read_csv(f"Dataset/etfs/{symbol}.csv")
+
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = data[data['Date'] >= '2000-01-01']
+
+        for row_index in range(len(data)):
+            date = data.iloc[row_index]['Date']
+
+            open_value = float(data.iloc[row_index]['Open'])
+            high_value = float(data.iloc[row_index]['High'])
+            low_value = float(data.iloc[row_index]['Low'])
+            close_value = float(data.iloc[row_index]['Close'])
+            adj_close_value = float(data.iloc[row_index]['Adj Close'])
+            volume_value = float(data.iloc[row_index]['Volume'])
+
+            if date in aggregated_data:
+
+                aggregated_data[date]['Std_Open'].update(open_value)
+                aggregated_data[date]['Std_High'].update(high_value)
+                aggregated_data[date]['Std_Low'].update(low_value)
+                aggregated_data[date]['Std_Close'].update(close_value)
+                aggregated_data[date]['Std_Adj Close'].update(adj_close_value)
+                aggregated_data[date]['Std_Volume'].update(volume_value)
+                aggregated_data[date]['Deviations'] += 1
+
+                num_std_dev = 2 
+
+                if (abs(open_value - aggregated_data[date]['Std_Open'].mean) <= num_std_dev * aggregated_data[date]['Std_Open'].std_dev() and
+        abs(high_value - aggregated_data[date]['Std_High'].mean) <= num_std_dev * aggregated_data[date]['Std_High'].std_dev() and
+        abs(low_value - aggregated_data[date]['Std_Low'].mean) <= num_std_dev * aggregated_data[date]['Std_Low'].std_dev() and
+        abs(close_value - aggregated_data[date]['Std_Close'].mean) <= num_std_dev * aggregated_data[date]['Std_Close'].std_dev() and
+        abs(adj_close_value - aggregated_data[date]['Std_Adj Close'].mean) <= num_std_dev * aggregated_data[date]['Std_Adj Close'].std_dev() and
+        abs(volume_value - aggregated_data[date]['Std_Volume'].mean) <= num_std_dev * aggregated_data[date]['Std_Volume'].std_dev()):
 
 
-    #     for row_index in range(len(data)):
-    #         date = data.iloc[row_index]['Date']
-    #         if date in aggregated_data:
-    #             aggregated_data[date]['Open'] += float(data.iloc[row_index]['Open'])
-    #             aggregated_data[date]['High'] += float(data.iloc[row_index]['High'])
-    #             aggregated_data[date]['Low'] += float(data.iloc[row_index]['Low'])
-    #             aggregated_data[date]['Close'] += float(data.iloc[row_index]['Close'])
-    #             aggregated_data[date]['Adj Close'] += float(data.iloc[row_index]['Adj Close'])
-    #             aggregated_data[date]['Volume'] += float(data.iloc[row_index]['Volume'])
-    #             aggregated_data[date]['Count'] += 1.0
+                    aggregated_data[date]['Open'] += open_value
+                    aggregated_data[date]['High'] += high_value
+                    aggregated_data[date]['Low'] += low_value
+                    aggregated_data[date]['Close'] += close_value
+                    aggregated_data[date]['Adj Close'] += adj_close_value
+                    aggregated_data[date]['Volume'] += volume_value
+                    aggregated_data[date]['Count'] += 1.0
 
-    #         else:
-    #             aggregated_data[date] = {
-    #                 'Open' : float(data.iloc[row_index]['Open']),
-    #                 'High' : float(data.iloc[row_index]['High']),
-    #                 'Low' : float(data.iloc[row_index]['Low']),
-    #                 'Close' : float(data.iloc[row_index]['Close']),
-    #                 'Adj Close' : float(data.iloc[row_index]['Adj Close']),
-    #                 'Volume' : float(data.iloc[row_index]['Volume']),
-    #                 'Count' : 1.0
-    #             }
+
+            else:
+                aggregated_data[date] = {
+                    'Open' : open_value,
+                    'High' : high_value,
+                    'Low' : low_value,
+                    'Close' : close_value,
+                    'Adj Close' : adj_close_value,
+                    'Volume' : volume_value,
+                    'Count' : 1.0,
+                    "Deviations" : 0,
+                    'Std_Open' : RunningStats(),
+                    'Std_High' : RunningStats(),
+                    'Std_Low' : RunningStats(),
+                    'Std_Close' : RunningStats(),
+                    'Std_Adj Close' : RunningStats(),
+                    'Std_Volume' : RunningStats(),
+                }
+
 
 rows = []
 
@@ -98,26 +190,3 @@ market_trend_dataset.dropna(inplace=True)
 market_trend_dataset.to_csv('market_trend_dataset.csv', index=False, header=True)
 
 print("It is Finished")
-# # Initializing the model 
-# model = LinearRegression()
-
-# # Running tests to learn the model. Will explain when I actually understand. Working with rows are weird
-# test_data = pd.read_csv("Dataset/stocks/A.csv")
-# test_data = test_data.drop(columns=['Date'], axis=1)
-# # Not doing what I would like. With a closer look at the data its saying the next day, not past day.
-# test_data['Previous_Close'] = test_data['Close'].shift(1)
-
-# test_data = test_data.dropna()
-
-# last_day = test_data[['Previous_Close']]
-# target = test_data['Close']
-
-# print(test_data)
-
-# X_train, X_test, y_train, y_test = train_test_split(last_day, target, test_size=0.2, random_state=42)
-
-# model.fit(X_train,y_train)
-
-# last_close = test_data['Close'].iloc[-1]
-# tomorrow_prediction = model.predict([[last_close]])
-# print(f"Tomorrow's Predicted Closing Price: {tomorrow_prediction[0]}")
