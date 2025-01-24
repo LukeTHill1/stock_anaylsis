@@ -1,38 +1,53 @@
-# Overview
+# Stock Analysis
 
-{Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
+## Overview
 
-{Provide a description of the data set that you are analyzing.  Include the link of where you obtained the data.}
-[Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data)
+What if you could correctly predict stock market trends 30 days from now? How do you predict this?
 
-{Describe your purpose for writing this software to analyze the data.}
+This is the question this project strives to answer. Using data from previous stock market records, we created a program that reads this data and outputs a 30 day prediction chart for a given stock based on the anylized data.
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the data set, the questions and answers, the code running and a walkthrough of the code.}
+We pulled our data for our program from [Kaggle.com](https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset/data). The data we pulled is organised in the Dataset directory as follows:
 
-[Software Demo Video](http://youtube.link.goes.here)
+* symbols_valid_meta.csv (a file containing every stock and ETF name with their assosiated symbols)
+* stocks (a directory containing a csv file for each companies' stock history)
+* etfs (a directory containing a csv file for each companies' ETF history)
 
-# Data Analysis Results
+This dataset was anylized by "market_trends.py" to create "market_trend_dataset.csv," a file containing the average of all stocks for each day. The new csv file was used by "model.py" to test code that generates a liniar regression model for our data. This code was then used by "stock.py" to predict stock market trends for a given company that is selected by typing it's NASDAQ symbol into the terminal.
+
+## Data Analysis Results
 
 Questions:
+
 1) How do you Train a Model using multiple files of data?
-2) How does a Regression Model work?
 
-# Development Environment
+    * We solved this by writing a file that reads multiple csv files and outputs a single csv file containing averages of all the csv files put into it.
 
-{Describe the tools that you used to develop the software}
+2) How does a Linear Regression Model work?
 
-{Describe the programming language that you used and any libraries.}
+    * A linear regression model works by analysing patterns in data to make future predictions. Given a dataset, the data is split into two different sets: the training set, and the test set. The data is split based off off a factor of randomness. The training set is used to model patterns in the data so it can make future predictions. It does this by predicting outcomes and comparing its results to the test set. In other words, the test set helps the training set catch on to current patterns so it can predict patterns for the future.
 
-# Useful Websites
+## Development Environment
 
-{Make a list of websites that you found helpful in this project}
+This project was programmed in VS Code using the Python language. We used the following Python modules:
+
+* pandas (used for processing csv files)
+* numpy (used for converting and processing data)
+* lets_plot (used for displaying results)
+* sklearn (used for the following)
+  * LinearRegression (a class that models Linear Regression)
+  * train_test_split (a function that splits the data for training)
+
+## Useful Websites
+
+These websites wer of most help to us during our project:
+
 * [Pandas.pydata.org](https://pandas.pydata.org/docs/user_guide/index.html)
 * [Scikit-learn.org](https://scikit-learn.org/stable/user_guide.html)
 
+## Future Work
 
-# Future Work
+Going forward, we could improve this project by doing the folling:
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Creating a way to display multiple stocks at once for comparison
+* Find a way to test the accuracy of our prediction to improve the accuracy of our linear regression model
+* Encapsulating our code into functions and classes to make it more usable in the future
