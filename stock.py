@@ -147,11 +147,11 @@ while True:
 
             # Create a DataFrame for future predictions
             future_df = pd.DataFrame({
-                'Day': range(1, 31),
+                'Date': range(1, 31),
                 'Predicted_Close': future_predictions
             })
             future_df2 = px.histogram(
-                future_predictions,
+                future_df,
                 x='Date',
                 title='30 day prediction for the company.'
             )
@@ -162,3 +162,4 @@ while True:
 
     else:
         print(f"\"{user_input}\" - NASDAQ Symbol not found")
+# %%
