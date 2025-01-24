@@ -16,7 +16,7 @@ This dataset was anylized by "market_trends.py" to create "market_trend_dataset.
 
 ## Data Analysis Results
 
-Questions:
+We focused on answering the following questions:
 
 1) How do you Train a Model using multiple files of data?
 
@@ -25,6 +25,7 @@ Questions:
 2) How does a Linear Regression Model work?
 
     * A linear regression model works by analysing patterns in data to make future predictions. Given a dataset, the data is split into two different sets: the training set, and the test set. The data is split based off off a factor of randomness. The training set is used to model patterns in the data so it can make future predictions. It does this by predicting outcomes and comparing its results to the test set. In other words, the test set helps the training set catch on to current patterns so it can predict patterns for the future.
+    * In this program, we used the LinearRegression class and the train_test_split function from the sklearn module to train and test our data.
 
 ## Development Environment
 
