@@ -25,11 +25,11 @@ execute:
     
 ---
 
-#########
+<!-- #########
 # Owner: Glen Kelley
 # Editors:
 #
-#########
+######### -->
 
 ```{python}
 #| label: libraries
@@ -41,29 +41,7 @@ from lets_plot import *
 LetsPlot.setup_html(isolated_frame=True)
 ```
 
-
-## Elevator pitch
-
-_paste your elevator pitch here_
-_A SHORT (4-5 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS._
-
-```{python}
-#| label: project-data
-#| code-summary: Read and format project data
-
-# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
-
-# Include and execute your code here
-df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
-```
-
-__Highlight the Questions and Tasks__
-
-## QUESTION|TASK 1
-
-__COPY PASTE QUESTION|TASK 1 FROM THE PROJECT HERE__
-
-_type your results and analysis here_
+__Market Trends and Market Prediction__
 
 ```{python}
 #| label: Q1
@@ -91,7 +69,7 @@ fig = px.line(
     selected_stocks,
     x='Date',
     y='Open',
-    title='The Companies opening trend.'
+    title='The Market opening trend.'
 )
 fig.update_layout(
     xaxis_title = 'Dates between Jan 2000 & Dec 2020',
@@ -103,7 +81,7 @@ fig2 = px.line(
     selected_stocks,
     x='Date',
     y='Close',
-    title='The Compnies closing trends'
+    title='The Market closing trends'
 )
 fig2.update_layout(
     xaxis_title = 'Dates between Jan 2000 & Dec 2020',
@@ -198,7 +176,7 @@ future_df2.show()
 ```
 
 
-## QUESTION|TASK 2
+<!-- ## QUESTION|TASK 2
 
 __COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
 
@@ -417,4 +395,4 @@ _include figures in chunks and discuss your findings in the figure._
 
 # display(mydat)
 
-```
+``` -->
