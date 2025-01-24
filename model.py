@@ -1,3 +1,9 @@
+#########
+# Owner: Glen Kelley
+# Editors:
+#
+#########
+
 import pandas as pd 
 import numpy as np
 from lets_plot import *
