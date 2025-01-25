@@ -47,7 +47,7 @@ These websites wer of most help to us during our project:
 
 ## Future Work
 
-Going forward, we could improve this project by doing the folling:
+Going forward, we could improve this project by doing the following:
 
 * Creating a way to display multiple stocks at once for comparison
 * Find a way to test the accuracy of our prediction to improve the accuracy of our linear regression model
